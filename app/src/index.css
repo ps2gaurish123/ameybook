@@ -1,0 +1,1319 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+/* CSS Theme Variables */
+:root {
+  /* Default: Calm Sage Theme */
+  --bg: #f5f7f5;
+  --text: #2c3c35;
+  --text-heading: #122119;
+  --text-muted: #647b71;
+  --card-bg: #ffffff;
+  --border: #e0e6e2;
+  --primary: #4a7463;
+  --primary-light: #eef3f0;
+  --primary-hover: #3d6052;
+  --accent: #d37a6b;
+  --accent-light: #fdf2f0;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 25px rgba(44, 60, 53, 0.08), 0 4px 10px rgba(0, 0, 0, 0.02);
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --font-sans: 'Outfit', 'Inter', -apple-system, sans-serif;
+  --font-serif: 'Playfair Display', 'Georgia', serif;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-size: 16px;
+}
+
+/* Theme Configurations */
+body.theme-light {
+  --bg: #fafafa;
+  --text: #2d312e;
+  --text-heading: #141715;
+  --text-muted: #6b726d;
+  --card-bg: #ffffff;
+  --border: #ececec;
+  --primary: #2d5a47;
+  --primary-light: #ebf2ee;
+  --primary-hover: #224536;
+  --accent: #cd6a57;
+  --accent-light: #fef0ed;
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+body.theme-sepia {
+  --bg: #f4ecd8;
+  --text: #433422;
+  --text-heading: #2d2013;
+  --text-muted: #7d6a54;
+  --card-bg: #faf4e6;
+  --border: #e6dac1;
+  --primary: #8c6239;
+  --primary-light: #fdfaf2;
+  --primary-hover: #73512e;
+  --accent: #b56950;
+  --accent-light: #fdf3ef;
+  --shadow-md: 0 4px 12px rgba(67, 52, 34, 0.05);
+}
+
+body.theme-dark {
+  --bg: #121214;
+  --text: #c0c6c3;
+  --text-heading: #f1f4f2;
+  --text-muted: #7c8882;
+  --card-bg: #1a1b1f;
+  --border: #2a2c32;
+  --primary: #6da28a;
+  --primary-light: #1f2723;
+  --primary-hover: #83b39d;
+  --accent: #e59a93;
+  --accent-light: #2c2120;
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.theme-sage {
+  --bg: #eef2ef;
+  --text: #203c2f;
+  --text-heading: #102219;
+  --text-muted: #537062;
+  --card-bg: #f8faf8;
+  --border: #d4deda;
+  --primary: #335e4d;
+  --primary-light: #e2ebe6;
+  --primary-hover: #284c3e;
+  --accent: #c46a5d;
+  --accent-light: #faecea;
+  --shadow-md: 0 4px 12px rgba(32, 60, 47, 0.03);
+}
+
+/* Font Size Modifiers */
+body.font-small { --font-size: 14px; }
+body.font-medium { --font-size: 16px; }
+body.font-large { --font-size: 19px; }
+body.font-xlarge { --font-size: 22px; }
+
+/* Base Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--font-size);
+  line-height: 1.6;
+  color: var(--text);
+  background-color: var(--bg);
+  transition: background-color 0.3s, color 0.3s;
+  overflow-x: hidden;
+}
+
+html,
+body,
+#root {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+input,
+select,
+textarea,
+[contenteditable="true"] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+img,
+canvas,
+svg,
+video,
+iframe {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* App Shell Layout */
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100svh;
+  width: 100%;
+  max-width: 480px; /* Force mobile portrait aspect ratio on desktop */
+  margin: 0 auto;
+  background-color: var(--bg);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+/* The general app keeps its focused phone-like width, while the book reader
+   uses the available desktop canvas so pages are readable without browser
+   zoom. Mobile and tablet layouts remain unchanged. */
+@media (min-width: 900px) {
+  body.reader-wide-layout #root {
+    max-width: 1120px;
+    box-shadow: 0 0 56px rgba(30, 58, 46, 0.1);
+  }
+
+  body.reader-wide-layout .bottom-nav {
+    left: 50%;
+    width: min(1120px, 100vw);
+    max-width: none;
+    transform: translateX(-50%);
+  }
+
+  body.reader-wide-layout .pdf-page-grid {
+    grid-template-columns: 52px minmax(0, 1fr) 52px;
+  }
+
+  body.reader-wide-layout .pdf-nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  min-height: 0;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-protected-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  transition: filter 160ms ease, opacity 160ms ease;
+}
+
+body.privacy-shield-active .app-protected-content {
+  filter: blur(22px);
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.privacy-shield {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at top, rgba(74, 116, 99, 0.18), transparent 32%),
+    rgba(10, 18, 15, 0.94);
+  color: #f8faf8;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease;
+}
+
+body.privacy-shield-active .privacy-shield {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.privacy-shield-card {
+  width: min(360px, 100%);
+  padding: 28px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+  text-align: center;
+  backdrop-filter: blur(18px);
+}
+
+.privacy-shield-card svg {
+  margin-bottom: 12px;
+}
+
+.privacy-shield-card h2 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.privacy-shield-card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 14px;
+}
+
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+
+  body::before {
+    content: "Printing and screenshot-style capture are disabled for this app.";
+    visibility: visible !important;
+    display: block;
+    padding: 32px;
+    font: 18px/1.4 Arial, sans-serif;
+    color: #111827;
+  }
+}
+
+
+/* Bottom Navigation Bar */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 480px;
+  height: 64px;
+  background: rgba(var(--card-bg), 0.8);
+  background-color: var(--card-bg);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 100%;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 11px;
+  font-weight: 500;
+  gap: 3px;
+}
+
+.nav-item.active {
+  color: var(--primary);
+}
+
+.nav-item svg {
+  width: 20px;
+  height: 20px;
+  transition: var(--transition);
+}
+
+.nav-item.active svg {
+  transform: translateY(-2px);
+  stroke-width: 2.5px;
+}
+
+/* Main Content Area */
+.main-content {
+  flex: 1;
+  padding: 16px 16px 80px 16px; /* space at bottom for nav */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Reader owns its internal scrolling surfaces. Keep the app shell fixed so
+   the PDF canvas and continuous reader cannot compete with a second scrollbar. */
+.main-content.reader-main-content {
+  min-height: 0;
+  padding: 0 0 64px;
+  overflow: hidden;
+  gap: 0;
+}
+
+.reader-shell {
+  min-height: 0;
+  width: 100%;
+}
+
+.care-guide-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 20px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Kindle Book Frame Styling */
+.kindle-frame {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 128px); /* height fits between header and footer */
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  margin: 0 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+.kindle-header {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border-bottom: 1px dotted var(--border);
+  padding: 0 16px;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.kindle-footer {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-muted);
+  border-top: 1px dotted var(--border);
+  padding: 0 16px;
+  flex-shrink: 0;
+  user-select: none;
+  background-color: var(--card-bg);
+}
+
+.kindle-body {
+  flex: 1;
+  padding: 12px 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Kindle Columns Reflowable Area */
+.kindle-columns-container {
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  left: 8px;
+  right: 8px;
+  overflow: hidden;
+}
+
+.kindle-columns {
+  column-width: 100%;
+  column-gap: 32px;
+  column-fill: auto;
+  height: 100%;
+  width: 100%;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+}
+
+/* Tap Zones to change pages */
+.kindle-tap-zone {
+  position: absolute;
+  top: 32px; /* below header */
+  bottom: 40px; /* above footer */
+  width: 15%;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.kindle-tap-left {
+  left: 0;
+}
+
+.kindle-tap-right {
+  right: 0;
+  width: 15%;
+}
+
+.kindle-tap-middle {
+  left: 15%;
+  width: 70%;
+}
+
+/* Typography styles inside reader */
+.reader-content {
+  font-family: var(--font-serif);
+  line-height: 1.65;
+  text-align: justify;
+  height: 100%;
+}
+
+.reader-content h1, .reader-content h2, .reader-content h3 {
+  break-after: avoid;
+  page-break-after: avoid;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-top: 16px;
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+
+.reader-content h2 {
+  font-size: 1.3em;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 4px;
+}
+
+.reader-content h3 {
+  font-size: 1.15em;
+}
+
+.reader-content p {
+  margin-bottom: 12px;
+  text-indent: 16px;
+  orphans: 2;
+  widows: 2;
+}
+
+.reader-content blockquote {
+  font-family: var(--font-sans);
+  border-left: 3px solid var(--primary);
+  background-color: var(--primary-light);
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  margin: 12px 0;
+  font-size: 0.9em;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+.reader-content blockquote strong {
+  color: var(--text-heading);
+}
+
+.reader-content ul, .reader-content ol {
+  font-family: var(--font-sans);
+  padding-left: 16px;
+  margin-bottom: 12px;
+  font-size: 0.9em;
+}
+
+.reader-content li {
+  margin-bottom: 6px;
+}
+
+/* Highlight style */
+.highlight-text {
+  background-color: rgba(211, 122, 107, 0.25);
+  border-radius: 2px;
+  cursor: pointer;
+  display: inline;
+}
+body.theme-sepia .highlight-text {
+  background-color: rgba(181, 105, 80, 0.3);
+}
+body.theme-dark .highlight-text {
+  background-color: rgba(229, 154, 147, 0.4);
+  color: #121214;
+}
+
+/* Active Reading Text-to-Speech Highlight */
+.reading-highlight {
+  background-color: rgba(253, 224, 71, 0.35) !important;
+  border-radius: 4px;
+  box-shadow: 0 0 4px rgba(253, 224, 71, 0.4);
+  transition: background-color 0.2s ease;
+}
+body.theme-dark .reading-highlight {
+  background-color: rgba(253, 224, 71, 0.5) !important;
+  color: #121214 !important;
+}
+
+/* Image styles inside reader */
+.reader-content img {
+  max-width: 100%;
+  height: auto;
+  max-height: 240px;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  margin: 10px auto;
+  display: block;
+  break-inside: avoid-column;
+}
+
+.reader-content div[style*="text-align: center"] {
+  margin: 15px 0;
+}
+
+/* Cards & Layout components */
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Floating Ask Button */
+.floating-ask-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 80px; /* just above nav bar */
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  background-color: var(--primary);
+  color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+  z-index: 90;
+  transition: var(--transition);
+}
+
+.floating-ask-btn:hover {
+  transform: scale(1.08) rotate(5deg);
+  background-color: var(--primary-hover);
+}
+
+.floating-ask-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Alerts / Callouts mimicking markdown-extra */
+.alert-note, .alert-important, .alert-warning, .alert-caution {
+  border-left-width: 4px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  margin: 16px 0;
+  font-size: 0.9em;
+  break-inside: auto;
+  -webkit-column-break-inside: auto;
+  page-break-inside: auto;
+}
+
+.alert-note {
+  border-left-color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+.alert-important, .alert-warning {
+  border-left-color: var(--accent);
+  background-color: var(--accent-light);
+}
+
+.alert-caution {
+  border-left-color: #d32f2f;
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+/* Checklists styles */
+.checklist-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  background-color: var(--primary-light);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.checklist-item.checked {
+  opacity: 0.7;
+  text-decoration: line-through;
+  background-color: transparent;
+  border-color: var(--border);
+}
+
+.checklist-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.checklist-text {
+  font-size: 14px;
+  color: var(--text);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.slide-in-right {
+  animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Onboarding slide-in */
+.onboarding-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 24px;
+  overflow-y: auto;
+}
+
+/* Timeline Horizontal Scroller */
+.timeline-scroller {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+}
+
+.timeline-tab {
+  flex: 0 0 auto;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.timeline-tab.active {
+  background-color: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+/* Header UI Component */
+.header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 80;
+}
+
+.header-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-heading);
+  font-family: var(--font-sans);
+}
+
+/* Dark Mode switches */
+.theme-panel {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  background: var(--card-bg);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  justify-content: space-around;
+  margin-bottom: 15px;
+}
+
+.theme-opt {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.theme-opt.active {
+  border-color: var(--primary);
+  transform: scale(1.1);
+}
+
+.theme-opt.opt-light { background-color: #fafafa; border-color: #ccc; }
+.theme-opt.opt-sepia { background-color: #f4ecd8; border-color: #d6cab0; }
+.theme-opt.opt-dark { background-color: #1a1b1f; border-color: #333; }
+.theme-opt.opt-sage { background-color: #eef2ef; border-color: #cbdad4; }
+
+/* Font size buttons */
+.font-size-btn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background-color: var(--card-bg);
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+  font-size: 13px;
+}
+
+.font-size-btn.active {
+  background-color: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+/* Modal overlays (Ask Box) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 480px;
+  max-height: 85%;
+  background-color: var(--bg);
+  border-top-left-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+
+/* Switch styling for quick settings */
+.switch-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.switch-label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Custom UI inputs */
+.input-text {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background-color: var(--card-bg);
+  color: var(--text);
+  outline: none;
+  transition: var(--transition);
+}
+
+.input-text:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: center;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: center;
+}
+
+.btn-secondary:hover {
+  background-color: var(--primary-light);
+  border-color: var(--primary);
+}
+
+/* Progress indicator */
+.progress-bar-container {
+  width: 100%;
+  height: 6px;
+  background-color: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: var(--primary);
+  transition: width 0.3s ease;
+}
+
+/* Kindle floating arrow buttons */
+.kindle-arrow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  color: var(--text-heading);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 25; /* Higher than tap zones */
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.kindle-arrow-btn:hover {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.kindle-arrow-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* Inside Kindle paginated columns, restrict image max-height to page height to avoid cutting off */
+.kindle-columns img {
+  max-height: calc(100% - 32px) !important;
+  max-width: 100% !important;
+  object-fit: contain;
+}
+
+/* ========================================
+   PDF Reader Mode Styles
+   ======================================== */
+
+.pdf-reader-frame {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  background: var(--bg);
+  position: relative;
+}
+
+.pdf-file-actions {
+  position: absolute;
+  top: 8px;
+  right: 48px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pdf-file-action-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text-heading);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  opacity: 0.92;
+  transition: background 0.15s, color 0.15s, transform 0.15s;
+}
+
+.pdf-file-action-btn:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+  transform: scale(1.05);
+}
+
+/* Grid: [‹ 40px] [page 1fr] [› 40px] */
+.pdf-page-grid {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) 40px;
+  flex: 1;
+  min-height: 0;
+  align-items: stretch;
+}
+
+/* Side gutter columns for prev/next arrows */
+.pdf-nav-gutter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pdf-nav-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.pdf-nav-btn:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+  transform: scale(1.08);
+}
+
+.pdf-nav-btn:active {
+  transform: scale(0.95);
+}
+
+/* Scrollable PDF page container */
+.pdf-page-container {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: var(--bg);
+  min-height: 0;
+  position: relative;
+  border-radius: 4px;
+}
+
+/* Floating Zoom Pill */
+.pdf-floating-zoom-bar {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 15;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.pdf-floating-zoom-bar:hover {
+  opacity: 1;
+}
+
+.pdf-zoom-btn-mini {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--text-heading);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.pdf-zoom-btn-mini:hover:not(:disabled) {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.pdf-zoom-btn-mini:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Loading state */
+.pdf-loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.pdf-loading-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: pdf-spin 0.8s linear infinite;
+}
+
+@keyframes pdf-spin {
+  to { transform: rotate(360deg); }
+}
+
+.pdf-page-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.pdf-page-loading-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+/* Mobile responsive gutters */
+@media (max-width: 480px) {
+  .pdf-page-grid {
+    grid-template-columns: 0 minmax(0, 1fr) 0;
+  }
+
+  .pdf-nav-gutter {
+    display: none;
+  }
+
+  .pdf-file-actions {
+    right: 10px;
+  }
+}
+
+/* react-pdf text layer: keep invisible but selectable */
+.react-pdf__Page__textContent {
+  /* Text layer is invisible but allows text selection and future search highlights */
+  color: transparent;
+}
+
+.react-pdf__Page__textContent ::selection {
+  background: rgba(var(--accent-rgb, 99, 102, 241), 0.3);
+  color: transparent;
+}
+
+/* react-pdf page wrapper */
+.react-pdf__Page {
+  position: relative;
+}
+
+/* Ensure canvas renders cleanly */
+.react-pdf__Page__canvas {
+  display: block;
+  margin: 0 auto;
+}
+
+.tracker-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.tracker-table th,
+.tracker-table td {
+  border: 1px solid var(--border);
+  padding: 8px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.tracker-table th {
+  background: var(--primary-light);
+  color: var(--text-heading);
+  font-weight: 700;
+}
+
+.tracker-row-done {
+  background: rgba(74, 116, 99, 0.08);
+}
+
+.table-input {
+  width: 100%;
+  min-width: 96px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px;
+  background: var(--card-bg);
+  color: var(--text);
+  font-size: 12px;
+}
+
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card-bg);
+  color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.tracker-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.growth-chart {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card-bg);
+}
+
+.growth-chart line {
+  stroke: var(--border);
+  stroke-width: 2;
+}
+
+.growth-chart text {
+  fill: var(--text-muted);
+  font-size: 10px;
+}
+
+.growth-line-weight,
+.growth-line-height {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.growth-line-weight {
+  stroke: #2f80ed;
+}
+
+.growth-line-height {
+  stroke: #27ae60;
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+.weight-dot {
+  background: #2f80ed;
+}
+
+.height-dot {
+  background: #27ae60;
+}
+
+@media (max-width: 520px) {
+  .tracker-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
