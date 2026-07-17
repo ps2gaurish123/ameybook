@@ -12,6 +12,7 @@ The following items were not available in the workspace and should be supplied o
 6. The production domain and canonical URL. The current canonical URL is local for development.
 7. Final app store links, if and when the app is published in the Apple App Store or Google Play Store.
 8. A final social-sharing image approved for public use. The current local Open Graph image uses the existing family illustration.
+9. A permanent public URL for the Thousand Days app. Until that is available, app buttons on the public landing page open the “What’s Inside” section rather than a broken local address.
 
 ## Recommended screenshot export checklist
 

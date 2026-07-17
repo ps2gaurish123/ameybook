@@ -1,5 +1,10 @@
 const appLinks = document.querySelectorAll('[data-app-link]');
-const appUrl = `${window.location.protocol}//${window.location.hostname}:5173/`;
+const isLocalPreview = window.location.hostname === 'localhost'
+  || window.location.hostname === '127.0.0.1'
+  || /^192\.168\.|^10\.|^172\.(1[6-9]|2\d|3[0-1])\./.test(window.location.hostname);
+const appUrl = isLocalPreview
+  ? `${window.location.protocol}//${window.location.hostname}:5173/`
+  : '#inside';
 appLinks.forEach((link) => link.setAttribute('href', appUrl));
 
 const menuButton = document.querySelector('.menu-button');
