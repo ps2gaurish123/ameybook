@@ -142,8 +142,8 @@ function App() {
 
   // 3a. Screenshot/privacy deterrence.
   // Web browsers cannot truly block OS-level screenshots, especially on iPad/iOS,
-  // but these measures hide sensitive content during print, tab switching,
-  // app switching, drag/copy attempts, and common keyboard capture shortcuts.
+  // but these measures hide sensitive content during tab/app switching,
+  // print/copy attempts, and common keyboard capture shortcuts.
   useEffect(() => {
     let shieldTimer: number | undefined;
 
@@ -151,7 +151,7 @@ function App() {
       setIsPrivacyShieldVisible(true);
       window.clearTimeout(shieldTimer);
       shieldTimer = window.setTimeout(() => {
-        if (!document.hidden && document.hasFocus()) {
+        if (!document.hidden) {
           setIsPrivacyShieldVisible(false);
         }
       }, 1500);
@@ -159,12 +159,6 @@ function App() {
 
     const handleVisibilityChange = () => {
       setIsPrivacyShieldVisible(document.hidden);
-    };
-
-    const handleBlur = () => setIsPrivacyShieldVisible(true);
-    const handleFocus = () => {
-      window.clearTimeout(shieldTimer);
-      shieldTimer = window.setTimeout(() => setIsPrivacyShieldVisible(false), 250);
     };
 
     const preventDefault = (event: Event) => {
@@ -186,8 +180,6 @@ function App() {
     };
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('blur', handleBlur);
-    window.addEventListener('focus', handleFocus);
     document.addEventListener('contextmenu', preventDefault);
     document.addEventListener('dragstart', preventDefault);
     document.addEventListener('copy', preventDefault);
@@ -197,8 +189,6 @@ function App() {
     return () => {
       window.clearTimeout(shieldTimer);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('blur', handleBlur);
-      window.removeEventListener('focus', handleFocus);
       document.removeEventListener('contextmenu', preventDefault);
       document.removeEventListener('dragstart', preventDefault);
       document.removeEventListener('copy', preventDefault);
