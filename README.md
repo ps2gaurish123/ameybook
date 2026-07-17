@@ -36,6 +36,8 @@ npm run dev
 
 The app includes the book reader, care timeline, vaccination and growth records, checklists, saved items, and parent-facing baby-care guidance. Test records are stored in the browser on the current device and should not yet be treated as a clinical record or cloud backup.
 
+The current browser test deployment is available at [https://thousand-days-app.vercel.app](https://thousand-days-app.vercel.app).
+
 ## Medical disclaimer
 
 Thousand Days supports parent education and record keeping. It does not replace a paediatrician, emergency service, diagnosis or individual medical advice. In an emergency, contact your local emergency service or seek immediate medical care.

@@ -4,7 +4,7 @@ const isLocalPreview = window.location.hostname === 'localhost'
   || /^192\.168\.|^10\.|^172\.(1[6-9]|2\d|3[0-1])\./.test(window.location.hostname);
 const appUrl = isLocalPreview
   ? `${window.location.protocol}//${window.location.hostname}:5173/`
-  : '#inside';
+  : 'https://thousand-days-app.vercel.app/';
 appLinks.forEach((link) => link.setAttribute('href', appUrl));
 
 const menuButton = document.querySelector('.menu-button');
