@@ -464,6 +464,7 @@ export const Reader: React.FC<ReaderProps> = ({
     } else {
       const startIdx = currentReadingParaIndex !== null ? currentReadingParaIndex : 0;
       playWithVoice(selectedVoiceName, startIdx);
+      setShowAudioDrawer(false);
     }
   };
 
@@ -1190,6 +1191,18 @@ export const Reader: React.FC<ReaderProps> = ({
             </button>
           </div>
         </div>
+      )}
+
+      {isPlaying && !showAudioDrawer && (
+        <button
+          type="button"
+          className="audio-stop-fab"
+          onClick={handleToggleAudio}
+          aria-label="Stop audio reading"
+        >
+          <Square size={12} fill="currentColor" />
+          Stop audio
+        </button>
       )}
 
       {/* 4. Sliding Drawer Overlay: Page Notes */}

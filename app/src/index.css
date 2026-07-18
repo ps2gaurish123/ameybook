@@ -627,6 +627,33 @@ body.theme-dark .reading-highlight {
   height: 24px;
 }
 
+.audio-stop-fab {
+  position: fixed;
+  left: 50%;
+  bottom: calc(72px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  z-index: 140;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 8px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(43, 56, 50, 0.22);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.audio-stop-fab:hover {
+  filter: brightness(0.96);
+}
+
 /* Alerts / Callouts mimicking markdown-extra */
 .alert-note, .alert-important, .alert-warning, .alert-caution {
   border-left-width: 4px;
