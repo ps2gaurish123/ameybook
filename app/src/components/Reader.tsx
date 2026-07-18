@@ -471,6 +471,7 @@ export const Reader: React.FC<ReaderProps> = ({
   const handleVoiceChange = (voiceName: string) => {
     setSelectedVoiceName(voiceName);
     localStorage.setItem('parenting_app_tts_voice', voiceName);
+    setShowAudioDrawer(false);
     
     if (synthRef.current && isPlaying) {
       synthRef.current.cancel();
