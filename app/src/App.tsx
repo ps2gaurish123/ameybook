@@ -9,9 +9,10 @@ import { Emergency } from './components/Emergency';
 import { CareGuides } from './components/CareGuides';
 import { Saved } from './components/Saved';
 import { TrackersHub } from './components/TrackersHub';
+import { HealthRecords } from './components/HealthRecords';
 
 import { 
-  Home as HomeIcon, BookOpen, Calendar, CheckSquare, Bookmark, AlertTriangle, MessageSquare 
+  Home as HomeIcon, BookOpen, Calendar, CheckSquare, Bookmark, AlertTriangle, MessageSquare, HeartPulse
 } from 'lucide-react';
 
 interface OnboardingData {
@@ -336,6 +337,8 @@ function App() {
             babyBirthDate={onboarding.babyBirthDate}
           />
         );
+      case 'health':
+        return <HealthRecords />;
       case 'timeline':
         return (
           <Timeline 
@@ -467,6 +470,9 @@ function App() {
           </button>
           <button className={`nav-item ${activeTab === 'timeline' ? 'active' : ''}`} onClick={() => setActiveTab('timeline')}>
             <Calendar /> Timeline
+          </button>
+          <button className={`nav-item ${activeTab === 'health' ? 'active' : ''}`} onClick={() => setActiveTab('health')}>
+            <HeartPulse /> Health
           </button>
           <button className={`nav-item ${activeTab === 'checklists' ? 'active' : ''}`} onClick={() => setActiveTab('checklists')}>
             <CheckSquare /> Checklists

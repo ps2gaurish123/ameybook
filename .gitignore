@@ -2,3 +2,7 @@
 app/node_modules/
 app/dist/
 app/.vercel/
+app/.env.local
+app/.env.*.local
+app/supabase/.branches/
+app/supabase/.temp/
