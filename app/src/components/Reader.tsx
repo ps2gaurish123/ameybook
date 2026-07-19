@@ -900,7 +900,7 @@ export const Reader: React.FC<ReaderProps> = ({
           </div>
 
           <PdfReader
-            pdfUrl="/book.pdf"
+            pdfUrl={`/book.pdf?v=${import.meta.env.VITE_BOOK_PDF_VERSION}`}
             currentPage={pdfPage}
             onPageChange={(page) => {
               setPdfPage(page);

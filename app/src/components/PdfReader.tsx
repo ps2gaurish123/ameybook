@@ -3,6 +3,7 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import { ChevronLeft, ChevronRight, Download, ExternalLink, ZoomIn, ZoomOut, Maximize } from 'lucide-react';
+import { loadCachedPdf } from '../lib/pdfCache';
 
 // Configure PDF.js worker locally
 pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
@@ -33,24 +34,28 @@ const PdfReader: React.FC<PdfReaderProps> = ({
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    let disposed = false;
+
     setIsLoading(true);
     setLoadError(null);
     setPdfData(null);
     setNumPages(null);
     setPageRendered(false);
     
-    fetch(pdfUrl)
-      .then(res => {
-        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-        return res.arrayBuffer();
-      })
+    loadCachedPdf(pdfUrl)
       .then(buffer => {
-        setPdfData(buffer);
+        if (!disposed) setPdfData(buffer);
       })
       .catch(err => {
-        setLoadError(err.message || 'Failed to fetch PDF data');
-        setIsLoading(false);
+        if (!disposed) {
+          setLoadError(err.message || 'Failed to fetch PDF data');
+          setIsLoading(false);
+        }
       });
+
+    return () => {
+      disposed = true;
+    };
   }, [pdfUrl]);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
